@@ -1,0 +1,3 @@
+CALL reorder_ids();
+CALL reorder_profile_ids();
+CALL reorder_laboratory_ids();

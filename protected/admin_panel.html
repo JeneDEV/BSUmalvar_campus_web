@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" /> 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <link rel="stylesheet" href="/css/admin_panel.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+        <h2></span><strong>BatStateU -<span>TNEU</strong></h2>
+      </div>
+      <div class="nav-menu">
+        <div class="menu-heading">Main</div>
+        <div class="nav-item active" data-section="Dashboard">
+          <i class="fas fa-chart-pie"></i>
+          <span>Dashboard</span>
+        </div>
+        <div class="nav-item" data-section="Departments">
+          <i class="fas fa-building"></i>
+          <span>Departments</span>
+        </div>
+        <div class="nav-item" data-section="Curriculum">
+          <i class="fas fa-book"></i>
+          <span>Curriculum</span>
+        </div>
+        <div class="nav-item" data-section="Laboratory">
+          <i class="fas fa-flask"></i>
+          <span>Laboratory </span>
+        </div>
+        <div class="nav-item" data-section="Profile">
+          <i class="fas fa-users"></i>
+          <span>Profile</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text"  id="searchInput" placeholder="Search..." />
+      </div>
+      <div class="header-actions">
+        
+        <!-- Notification Dropdown -->
+        
+        
+        
+        <div class="user-profile d-flex align-items-center">
+          <div class="fa fa-user me-2"></div> <!-- Added me-2 for spacing -->
+          <div class="user-info me-3">
+            <div class="user-role">Administrator</div>
+          </div>
+          <button id="logoutBtn" style="background-color: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 5px;">Logout</button>
+
+
+
+
+        </div>
+        
+        
+      </div>
+    </div>
+
+
+    <!--Modals for create, view, edit, delete-->
+    <div class="modal fade" id="Modals" tabindex="-1" aria-labelledby="modalTitle" >
+      <div class="modal-dialog modal-dialog-centered"> <!-- Centered Modal -->
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="modalTitle">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" id="modalBody">
+                  <!-- Content will be injected here -->
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="modalActionBtn" style="display:none;">Confirm</button>
+              </div>
+          </div>
+      </div>
+   </div>
+     
+    <!-- Dashboard Section -->
+    <div class="Dashboard">
+      <div class="page-title">
+        <div class="title">Dashboard</div>
+          <div class="action-buttons">
+
+          </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-cards">
+          <div class="stat-card">
+              <div class="card-header">
+                  <div>
+                      <div class="card-value profile-value">0</div>
+                      <div class="card-label">Total Profile</div>
+                  </div>
+                  <div class="card-icon purple">
+                      <i class="fas fa-users"></i>  <!-- Profile Icon -->
+                  </div>
+              </div>
+          </div>
+      
+          <div class="stat-card">
+              <div class="card-header">
+                  <div>
+                      <div class="card-value departments-value">0</div>
+                      <div class="card-label">Total Departments</div>
+                  </div>
+                  <div class="card-icon blue">
+                      <i class="fas fa-building"></i>  <!-- Department Icon -->
+                  </div>
+              </div>
+          </div>
+      
+          <div class="stat-card">
+              <div class="card-header">
+                  <div>
+                      <div class="card-value curriculum-value">0</div>
+                      <div class="card-label">Total Curriculum</div>
+                  </div>
+                  <div class="card-icon green">
+                      <i class="fas fa-book"></i>  <!-- Curriculum Icon -->
+                  </div>
+              </div>
+          </div>
+      
+          <div class="stat-card">
+              <div class="card-header">
+                  <div>
+                      <div class="card-value laboratory-value">0</div>
+                      <div class="card-label">Total Laboratory</div>
+                  </div>
+                  <div class="card-icon orange">
+                      <i class="fas fa-flask"></i>  <!-- Laboratory Icon -->
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      
+      </div>
+
+      
+      <!-- contents -->
+      <div class="Departments" style="display: none;">
+        <div class="table-card">
+            <div class="card-title">
+                <h3><i class="fas fa-building"></i> Departments</h3>
+            </div>
+            <button class="btn btn-outline" onclick="createDepartment()">
+              <i class="fas fa-plus"></i> Create
+          </button>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>LOGO</th>
+                        <th>DESCRIPTION</th>
+                        <th>QR</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody id="departmentsBody">
+                    <!-- Dynamic rows will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+      <div class="Curriculum" style="display: none;">
+        <div class="table-card">
+          <div class="card-title">
+            <h3><i class="fas fa-book"></i> Current Curriculum</h3>
+          </div>
+          <button class="btn btn-outline" onclick="addCurriculum()">
+            <i class="fas fa-plus"></i> Add
+          </button>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>DEPARTMENT</th>
+                <th>CURRICULUM</th>
+                <th>DATE</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="curriculumsBody">
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+
+      <div class="Laboratory" style="display: none;">
+        <div class="table-card">
+          <div class="card-title">
+            <h3><i class="fas fa-flask"></i> Laboratory</h3>
+          </div>
+          <button class="btn btn-outline" onclick="createLaboratory()">
+            <i class="fas fa-plus"></i> Add
+          </button>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>DEPARTMENT</th>
+                <th>ROOM_NAME</th>
+                <th>LABORATORY</th>
+                <th>DESCRIPTION</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="laboratoryBody">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+      <div class="Profile" style="display: none;">
+        <div class="table-card">
+          <div class="card-title">
+            <h3><i class="fas fa-users"></i>Profile</h3>
+          </div>
+          <button class="btn btn-outline" onclick="createProfile()">
+            <i class="fas fa-plus"></i> Add
+          </button>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>POSITION</th>
+                <th>PROFILE PICTURE</th>
+                <th>DEPARTMENT</th>
+                <th>DESCRIPTION</th>
+                <th>CATEGORY</th>
+                <th>ACTION</th>
+
+              </tr>
+            </thead>
+            <tbody id="profileBody">
+            
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      
+  </div>
+</body>
+<script src="/js/admin/admin_panel.js"></script>
+<script src="/js/admin/departments.js"></script>
+<script src="/js/admin/curriculum.js"></script>
+<script src="/js/admin/laboratory.js"></script>
+<script src="/js/admin/profile.js"></script>
+<script src="/js/admin/search.js"></script>
+<script src="/js/admin/dashboard.js"></script>
+</html>
