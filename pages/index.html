@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BatState-U Malvar Campus</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-YUe2LzesAfftltw+PEaao2tjU/QATaW/rOitAq67e0CT0Zi2VVRL0oC4+gAaeBKu" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/styles.css">
@@ -183,7 +183,28 @@
       <div class="profile">    
         <div id="profilesContainer" class="row" style="display:flex; justify-content: center;"></div>
       </div>
-      
+            <!-- Profile Modal -->
+      <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="profileModalLabel">Profile Info</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex" >
+              <img id="modalImage" class="img-fluid rounded-circle mb-3 m " style="max-width: 50%; height: auto; border: solid black; margin-right: 20px;">
+              <div class="txt-cons" >
+                <strong><h1 id="modalName"></h1></strong>
+                <i><p id="modalRole"></p></i>
+                <p id="modalDept"></p>
+                <p id="modalCategory"></p>
+                <p id="modalDesc"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 </body>
 
 

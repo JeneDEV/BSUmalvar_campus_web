@@ -187,3 +187,20 @@ html {
   .row {
      --bs-gutter-x: 0;
   }
+
+  .modal{
+    --bs-modal-width: 800px;
+  }
+
+  .txt-cons p{
+    font-size: large;
+    
+    
+
+  }
+
+  .txt-cons h1{
+    font-family: Verdana, Geneva, Tahoma, sans-serif ;
+    font-weight: bolder;
+    font-size: 2rem;
+  }

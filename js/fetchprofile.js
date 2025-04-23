@@ -103,22 +103,32 @@ function renderProfiles(profiles) {
     const card = document.createElement("div");
     card.className = "col-md-4 mb-4";
     card.style.maxWidth = "30%";
+  
     card.innerHTML = `
-      <div class="member-card" data-category="${profile.category}" style="width: 98%" href="pages/profiles.html"> 
+      <div class="member-card" data-category="${profile.category}" style="width: 98%; cursor: pointer;"> 
         <img src="/public/uploads/${profile.image}" alt="${profile.name}" class="member-photo" style="width: 110px; height: 110px;">
         <div class="member-info">
           <p class="member-name">${profile.name}</p>
           <p class="member-role">${profile.position}</p>
           <p style="margin:0;">${profile.department}</p>
-          
         </div>  
-       
       </div>
     `;
-    container.appendChild(card);
-
-    
-  });
-
   
-}
+    // 👇 Add click event to show modal
+    card.addEventListener("click", () => {
+      document.getElementById("modalImage").src = `/public/uploads/${profile.image}`;
+      document.getElementById("modalName").textContent = profile.name;
+      document.getElementById("modalRole").textContent = profile.position;
+      document.getElementById("modalDept").textContent = profile.department;
+      document.getElementById("modalDesc").textContent = profile.description;
+      document.getElementById("modalCategory").textContent = profile.category;
+  
+      // Show the modal (Bootstrap 5)
+      const modal = new bootstrap.Modal(document.getElementById("profileModal"));
+      modal.show();
+    });
+  
+    container.appendChild(card);
+  });
+}  
