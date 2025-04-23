@@ -85,9 +85,14 @@ function editProfile(id) {
                 <label class="form-label">Description</label>
                 <textarea class="form-control" id="editDescription" required>${profile.description}</textarea>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Category</label>
-                <textarea class="form-control" id="editCategory" required>${profile.category}</textarea>
+             <div id="categorySelection" class="category-container" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <span class="category-tag" data-value="College Officials" style="padding: 8px 15px; background-color: #f0f0f0; border-radius: 20px; cursor: pointer; user-select: none; transition: 0.2s;">College Officials</span>
+                <span class="category-tag" data-value="Faculty" style="padding: 8px 15px; background-color: #f0f0f0; border-radius: 20px; cursor: pointer; user-select: none; transition: 0.2s;">Faculty</span>
+                <span class="category-tag" data-value="Staff" style="padding: 8px 15px; background-color: #f0f0f0; border-radius: 20px; cursor: pointer; user-select: none; transition: 0.2s;">Staff</span>
+                <span class="category-tag" data-value="Teaching" style="padding: 8px 15px; background-color: #f0f0f0; border-radius: 20px; cursor: pointer; user-select: none; transition: 0.2s;">Teaching</span>
+                <span class="category-tag" data-value="Non-Teaching" style="padding: 8px 15px; background-color: #f0f0f0; border-radius: 20px; cursor: pointer; user-select: none; transition: 0.2s;">Non-Teaching</span>
+            </div>
+            <input type="hidden" id="profileCategory" name="profileCategory" required />
             </div>
         </form>
     `;
@@ -97,7 +102,7 @@ function editProfile(id) {
         formData.append("name", document.getElementById("editName").value);
         formData.append("position", document.getElementById("editPosition").value);
         formData.append("description", document.getElementById("editDescription").value);
-        formData.append("category", document.getElementById("editCategory").value);
+        formData.append("category", document.getElementById("profileCategory").value);
         formData.append("department", document.getElementById("editDepartment").value); // Department as text
 
         const profilePicture = document.getElementById("editProfilePicture").files[0];
@@ -128,6 +133,21 @@ function editProfile(id) {
     }
 
     showModal("Edit Profile", modalContent, "Save Changes", saveChanges, "btn-primary");
+    const tags = document.querySelectorAll('.category-tag');
+    const hiddenInput = document.getElementById('profileCategory');
+
+    tags.forEach(tag => {
+        tag.addEventListener('click', () => {
+        const isSelected = tag.classList.toggle('selected');
+        tag.style.backgroundColor = isSelected ? '#007bff' : '#f0f0f0';
+        tag.style.color = isSelected ? '#fff' : '#000';
+
+        const selected = Array.from(document.querySelectorAll('.category-tag.selected'))
+                                .map(t => t.getAttribute('data-value'));
+
+        hiddenInput.value = selected.join(', ');
+        });
+    });
 }
 
 
@@ -188,11 +208,20 @@ function createProfile() {
                 <textarea class="form-control" id="profileDescription" required></textarea>
             </div>
             <div class="mb-3">
-                <label class="form-label">Category</label>
-                <textarea class="form-control" id="profileCategory" required></textarea>
+            <label class="form-label">Category</label>
+            <div id="categorySelection" class="category-container" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <span class="category-tag" data-value="College Officials" style="padding: 8px 15px; background-color: #f0f0f0; border-radius: 20px; cursor: pointer; user-select: none; transition: 0.2s;">College Officials</span>
+                <span class="category-tag" data-value="Faculty" style="padding: 8px 15px; background-color: #f0f0f0; border-radius: 20px; cursor: pointer; user-select: none; transition: 0.2s;">Faculty</span>
+                <span class="category-tag" data-value="Staff" style="padding: 8px 15px; background-color: #f0f0f0; border-radius: 20px; cursor: pointer; user-select: none; transition: 0.2s;">Staff</span>
+                <span class="category-tag" data-value="Teaching" style="padding: 8px 15px; background-color: #f0f0f0; border-radius: 20px; cursor: pointer; user-select: none; transition: 0.2s;">Teaching</span>
+                <span class="category-tag" data-value="Non-Teaching" style="padding: 8px 15px; background-color: #f0f0f0; border-radius: 20px; cursor: pointer; user-select: none; transition: 0.2s;">Non-Teaching</span>
+            </div>
+            <input type="hidden" id="profileCategory" name="profileCategory" required />
             </div>
         </form>
     `;
+
+
 
     function submitNewProfile() {
         const formData = new FormData();
@@ -226,4 +255,22 @@ function createProfile() {
     }
 
     showModal(modalTitle, modalBody, "Create", submitNewProfile, "btn-success");
+    const tags = document.querySelectorAll('.category-tag');
+    const hiddenInput = document.getElementById('profileCategory');
+
+    tags.forEach(tag => {
+        tag.addEventListener('click', () => {
+        const isSelected = tag.classList.toggle('selected');
+        tag.style.backgroundColor = isSelected ? '#007bff' : '#f0f0f0';
+        tag.style.color = isSelected ? '#fff' : '#000';
+
+        const selected = Array.from(document.querySelectorAll('.category-tag.selected'))
+                                .map(t => t.getAttribute('data-value'));
+
+        hiddenInput.value = selected.join(', ');
+        });
+    });
+
 }
+
+

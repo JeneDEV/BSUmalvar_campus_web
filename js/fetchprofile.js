@@ -78,14 +78,20 @@ async function fetchProfiles() {
 
 function filterProfiles(category) {
   currentCategory = category;
+
   const filtered = allProfiles.filter(profile => {
     const matchDept = profile.department === selectedDepartment;
-    const matchCat = category === "All" || profile.category === category;
+
+    // Handle categories with multiple comma-separated values
+    const categories = profile.category.split(',').map(c => c.trim());
+    const matchCat = category === "All" || categories.includes(category);
+
     return matchDept && matchCat;
   });
 
   renderProfiles(filtered);
 }
+
 
 function renderProfiles(profiles) {
   
