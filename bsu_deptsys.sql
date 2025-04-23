@@ -42,28 +42,6 @@ INSERT INTO `admin` (`id`, `email`, `password`) VALUES
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `notifications`
---
-
-CREATE TABLE `notifications` (
-  `id` int(11) NOT NULL,
-  `message` text NOT NULL,
-  `is_read` tinyint(1) DEFAULT 0,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `notifications`
---
-
-INSERT INTO `notifications` (`id`, `message`, `is_read`, `timestamp`) VALUES
-(1, 'New user created', 1, '2025-04-02 02:00:00'),
-(2, 'New comment on your post', 1, '2025-04-02 03:00:00'),
-(3, 'System update available', 1, '2025-04-02 04:00:00'),
-(4, 'New user created', 1, '2025-04-02 02:00:00');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `tbl_curriculum`
@@ -95,7 +73,7 @@ CREATE TABLE `tbl_departments` (
   `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT 'N/A',
   `logo` varchar(255) DEFAULT 'N/A',
-  `description` text DEFAULT 'N/A',
+  `description` text,
   `qr` varchar(255) DEFAULT 'N/A'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -176,11 +154,6 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
---
--- Indexes for table `notifications`
---
-ALTER TABLE `notifications`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_curriculum`
@@ -216,11 +189,6 @@ ALTER TABLE `tbl_profile`
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
---
--- AUTO_INCREMENT for table `notifications`
---
-ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_curriculum`
