@@ -21,7 +21,7 @@ function populateProfileTable() {
             <td>${prof.id}</td>
             <td>${prof.name}</td>
             <td>${prof.position}</td>
-            <td><img src="/public/uploads/${prof.image}" alt="Profile Image" width="50"></td>
+            <td><img src="/public/uploads/${prof.image}" alt="Profile Image" width="100"></td>
             <td>${prof.department}</td>
             <td>${prof.description}</td>
             <td>${prof.category}</td>
@@ -49,7 +49,7 @@ function viewProfile(id) {
         <p><strong>ID: </strong>${profile.id}</p>
         <p><strong>NAME: </strong>${profile.name}</p>
         <p><strong>FACULTY RANK: </strong>${profile.position}</p>
-        <p><strong>PROFILE PICTURE: </strong><img src="/public/uploads/${profile.image}" alt="Profile Image" width="50"></p>
+        <p><strong>PROFILE PICTURE: </strong><img src="/public/uploads/${profile.image}" alt="Profile Image" width="180"></p>
         <p><strong>DEPARTMENT: </strong>${profile.department}</p>
         <p><strong>DESCRIPTION: </strong>${profile.description}</p>
         <p><strong>CATEGORY: </strong>${profile.category}</p>
@@ -85,6 +85,7 @@ function editProfile(id) {
                 <label class="form-label">Description</label>
                 <textarea class="form-control" id="editDescription" required>${profile.description}</textarea>
             </div>
+            <label class="form-label">Category</label>
              <div id="categorySelection" class="category-container" style="display: flex; flex-wrap: wrap; gap: 10px;">
                 <span class="category-tag" data-value="College Officials" style="padding: 8px 15px; background-color: #f0f0f0; border-radius: 20px; cursor: pointer; user-select: none; transition: 0.2s;">College Officials</span>
                 <span class="category-tag" data-value="Faculty" style="padding: 8px 15px; background-color: #f0f0f0; border-radius: 20px; cursor: pointer; user-select: none; transition: 0.2s;">Faculty</span>
@@ -205,8 +206,14 @@ function createProfile() {
             </div>
             <div class="mb-3">
                 <label class="form-label">Description</label>
-                <textarea class="form-control" id="profileDescription" required></textarea>
+                <textarea class="form-control" id="profileDescription" required>
+                This is a description
+                that spans multiple lines
+
+                    And keeps indentation.
+                </textarea>
             </div>
+
             <div class="mb-3">
             <label class="form-label">Category</label>
             <div id="categorySelection" class="category-container" style="display: flex; flex-wrap: wrap; gap: 10px;">

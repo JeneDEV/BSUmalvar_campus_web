@@ -177,8 +177,6 @@
           <button class="btn btn-outline-dark" onclick="filterProfiles('College Officials')">College Officials</button>
           <button class="btn btn-outline-dark" onclick="filterProfiles('Faculty')">Faculty</button>
           <button class="btn btn-outline-dark" onclick="filterProfiles('Staff')">Staff</button>
-          <button class="btn btn-outline-dark" onclick="filterProfiles('Teaching')">Teaching</button>
-          <button class="btn btn-outline-dark" onclick="filterProfiles('Non-Teaching')">Non-Teaching</button>
           
         </div>
       </div>
@@ -194,13 +192,15 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex" >
-              <img id="modalImage" class="img-fluid rounded-circle mb-3 m " style="max-width: 50%; height: auto; border: solid black; margin-right: 20px;">
+              <img id="modalImage" class="img-fluid rounded-circle mb-3 m " style="max-width: 50%; height: 50%; border: solid black; margin-right: 20px;">
               <div class="txt-cons" >
                 <strong><h1 id="modalName"></h1></strong>
                 <i><p id="modalRole"></p></i>
                 <p id="modalDept"></p>
-                <p id="modalCategory"></p>
-                <p id="modalDesc"></p>
+                <strong><p id="modalCategory"></p></strong>
+                <p id="modalDesc" style="white-space: pre-wrap; "></p>
+
+
               </div>
             </div>
           </div>
