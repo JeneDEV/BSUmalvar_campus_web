@@ -173,7 +173,7 @@ router.get('/sliders', (req, res) => {
 
 //<-----------------------------------------start of curriculum table-------------------------------------------->
 
-router.get('/curriculums', (req, res) => {
+router.get('/curriculum', (req, res) => {
     const sql = "SELECT *, DATE_FORMAT(date_upload, '%Y-%m-%d') AS formatted_date_upload FROM tbl_curriculum";
     db.query(sql, (err, results) => {
         if (err) {
@@ -658,6 +658,244 @@ router.post('/logout', (req, res) => {
   });
   
 
+
+
+
+//<-------------------------------------------start of blog table----------------------------------------------->
+
+// API Route to fetch all blogs
+router.get('/blogs', (req, res) => {
+    const sql = `
+    SELECT 
+        id, 
+        department,
+        title, 
+        description, 
+        pictures, 
+         DATE_FORMAT(date, '%M %d, %Y') AS date, 
+        author, 
+        file_pdf 
+    FROM tbl_blog
+`;
+
+    db.query(sql, (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Database query failed' });
+        }
+        res.json(results); // Send MySQL data as JSON
+    });
+});
+
+
+
+router.delete('/blogs/:id', (req, res) => {
+    const blogId = req.params.id;
+    const sql = 'DELETE FROM tbl_blog WHERE id = ?';
+
+    db.query(sql, [blogId], (err, result) => {
+        if (err) {
+            console.error('Error deleting blogs:', err);
+            return res.status(500).json({ message: 'Failed to delete blogs' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'blog not found' });
+        }
+
+        res.json({ message: 'blog deleted successfully' });
+    });
+});
+
+
+
+// edit blog
+router.put("/blogs/:id", async (req, res) => {
+    const { id } = req.params;
+    const { department, title, description, date, author } = req.body;
+    const pictures = req.files?.pictures;
+    const file_pdf = req.files?.file_pdf;  // Updated to match the frontend field name
+
+    // Define upload directory
+    const uploadDir = path.join(__dirname, "../public/uploads");
+
+    let updates = [];
+    let values = [];
+
+    // Add text fields to updates
+    if (department) {
+        updates.push("department = ?");
+        values.push(department);
+    }
+    if (title) {
+        updates.push("title = ?");
+        values.push(title);
+    }
+    if (description) {
+        updates.push("description = ?");
+        values.push(description);
+    }
+    if (date) {
+        updates.push("date = ?");
+        values.push(date);
+    }
+    if (author) {
+        updates.push("author = ?");
+        values.push(author);
+    }
+
+    // Function to move a file
+    const moveFile = (file) => {
+        return new Promise((resolve, reject) => {
+            if (!file) return resolve(null);
+            const filePath = path.join(uploadDir, file.name);
+            console.log("Moving file to:", filePath);
+            file.mv(filePath, (err) => {
+                if (err) {
+                    console.error("Error moving file:", err);
+                    reject(err);
+                } else {
+                    console.log("File moved successfully:", file.name);
+                    resolve(file.name);
+                }
+            });
+        });
+    };
+
+    try {
+        // Move files if provided
+        if (pictures) {
+            const newImageName = await moveFile(pictures);
+            updates.push("pictures = ?");
+            values.push(newImageName);
+        }
+        if (file_pdf) {
+            const newFileName = await moveFile(file_pdf);
+            updates.push("file_pdf = ?");
+            values.push(newFileName);
+        }
+
+        // If no fields to update, return an error
+        if (updates.length === 0) {
+            return res.status(400).json({ error: "No fields to update" });
+        }
+
+        // Add ID at the end for the WHERE condition
+        values.push(id);
+
+        // Construct the update SQL query
+        const sql = `UPDATE tbl_blog SET ${updates.join(", ")} WHERE id = ?`;
+
+        db.query(sql, values, (err, result) => {
+            if (err) {
+                return res.status(500).json({ error: "Database update failed", details: err.message });
+            }
+            res.json({ message: "Blog updated successfully" });
+        });
+    } catch (error) {
+        return res.status(500).json({ error: "File upload failed", details: error.message });
+    }
+});
+
+
+
+
+
+// create blog
+router.post("/blogs", async (req, res) => {
+    const { department, title, description, date, author } = req.body;
+    const pictures = req.files?.pictures;
+    const file_pdf = req.files?.file_pdf;
+
+    const uploadDir = path.join(__dirname, "../public/uploads");
+
+    let columns = [];
+    let placeholders = [];
+    let values = [];
+
+    // Add text fields
+    if (department) {
+        columns.push("department");
+        placeholders.push("?");
+        values.push(department);
+    }
+    if (title) {
+        columns.push("title");
+        placeholders.push("?");
+        values.push(title);
+    }
+    if (description) {
+        columns.push("description");
+        placeholders.push("?");
+        values.push(description);
+    }
+    if (date) {
+        columns.push("date");
+        placeholders.push("?");
+        values.push(date);
+    }
+    if (author) {
+        columns.push("author");
+        placeholders.push("?");
+        values.push(author);
+    }
+
+    const moveFile = (file) => {
+        return new Promise((resolve, reject) => {
+            if (!file) return resolve(null);
+            const filePath = path.join(uploadDir, file.name);
+            console.log("Moving file to:", filePath);
+            file.mv(filePath, (err) => {
+                if (err) {
+                    console.error("Error moving file:", err);
+                    reject(err);
+                } else {
+                    console.log("File moved successfully:", file.name);
+                    resolve(file.name);
+                }
+            });
+        });
+    };
+
+    try {
+        // Move and save file names if provided
+        if (pictures) {
+            const newImageName = await moveFile(pictures);
+            if (newImageName) {
+                columns.push("pictures");
+                placeholders.push("?");
+                values.push(newImageName);
+            }
+        }
+
+        if (file_pdf) {
+            const newFileName = await moveFile(file_pdf);
+            if (newFileName) {
+                columns.push("file_pdf");
+                placeholders.push("?");
+                values.push(newFileName);
+            }
+        }
+
+        // Ensure at least one field was provided
+        if (columns.length === 0) {
+            return res.status(400).json({ error: "No data provided for blog creation" });
+        }
+
+        const sql = `INSERT INTO tbl_blog (${columns.join(", ")}) VALUES (${placeholders.join(", ")})`;
+
+        db.query(sql, values, (err, result) => {
+            if (err) {
+                return res.status(500).json({ error: "Database insertion failed", details: err.message });
+            }
+            res.json({ message: "Blog created successfully", blogId: result.insertId });
+        });
+    } catch (error) {
+        return res.status(500).json({ error: "File upload failed", details: error.message });
+    }
+});
+
+
+//<-------------------------------------------end of blog table----------------------------------------------->
 
 module.exports = router;  // Ensure this is here
 

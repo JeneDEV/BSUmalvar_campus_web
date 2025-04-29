@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard</title>
+  <title>Admin Panel</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" /> 
@@ -21,7 +21,7 @@
         <h2></span><strong>BatStateU -<span>TNEU</strong></h2>
       </div>
       <div class="nav-menu">
-        <div class="menu-heading">Main</div>
+        <div class="menu-heading">Menu</div>
         <div class="nav-item active" data-section="Dashboard">
           <i class="fas fa-chart-pie"></i>
           <span>Dashboard</span>
@@ -41,6 +41,10 @@
         <div class="nav-item" data-section="Profile">
           <i class="fas fa-users"></i>
           <span>Profile</span>
+        </div>
+        <div class="nav-item" data-section="Blog">
+          <i class="fas fa-pencil-alt"></i>
+          <span>Blog</span>
         </div>
       </div>
     </div>
@@ -270,6 +274,37 @@
         </div>
       </div>
 
+      <div class="Blog" style="display: none;">
+        <div class="table-card">
+          <div class="card-title">
+            <h3><i class="fas fa-pencil-alt"></i>Blog</h3>
+          </div>
+          <button class="btn btn-outline" onclick="createBlog()">
+            <i class="fas fa-plus"></i> Add
+          </button>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>DEPARTMENT</th>
+                <th>TITLE</th>
+                <th>DESCRIPTION</th>
+                <th>PICTURES</th>
+                <th>DATE</th>
+                <th>AUTHOR</th>
+                <th>FILE</th>
+                <th>ACTION</th>
+
+              </tr>
+            </thead>
+            <tbody id="blogBody">
+            
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+
 
       
   </div>
@@ -281,4 +316,5 @@
 <script src="/js/admin/profile.js"></script>
 <script src="/js/admin/search.js"></script>
 <script src="/js/admin/dashboard.js"></script>
+<script src="/js/admin/blog.js"></script>
 </html>

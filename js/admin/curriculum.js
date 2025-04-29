@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", fetchCurriculums);
 
 // Function to fetch department data from API
 function fetchCurriculums() {
-    fetch("/api/curriculums")
+    fetch("/api/curriculum")
         .then(response => response.json())
         .then(data => {
             curriculums = data; // Store fetched data
