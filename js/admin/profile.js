@@ -229,7 +229,6 @@ function createProfile() {
     `;
 
 
-
     function submitNewProfile() {
         const formData = new FormData();
         formData.append("name", document.getElementById("profileName").value);
