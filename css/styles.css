@@ -81,12 +81,6 @@ h5, h3{
 }
 
 
-
-
-.card{
-    margin-right: 2rem;
-}
-
 html {
     scroll-behavior: smooth;
   }
@@ -149,11 +143,13 @@ html {
   .member-card {
     display: flex;
     align-items: center;
-    border: 3px solid #5f0000;
+    border: .5px solid #000000;
     background-color: #fff;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     transition: transform 0.2s ease;
-    width: 80%;
+    max-width: 90%;
+
+
   }
 
   .member-card:hover {
@@ -161,9 +157,8 @@ html {
   }
 
   .member-photo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+    width: 8rem;
+    height: 8rem;
     object-fit: cover;
     margin-right: 15px;
     background-color: #ddd;

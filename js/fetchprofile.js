@@ -108,11 +108,11 @@ function renderProfiles(profiles) {
   profiles.forEach(profile => {
     const card = document.createElement("div");
     card.className = "col-md-4 mb-4";
-    card.style.maxWidth = "30%";
+    card.style.maxWidth = "28%";
   
     card.innerHTML = `
-      <div class="member-card" data-category="${profile.category}" style="width: 98%; cursor: pointer;"> 
-        <img src="/public/uploads/${profile.image}" alt="${profile.name}" class="member-photo" style="width: 110px; height: 110px;">
+      <div class="member-card" data-category="${profile.category}" style="margin-bottom:2rem; cursor: pointer;"> 
+        <img src="/public/uploads/${profile.image}" alt="${profile.name}" class="member-photo" style="">
         <div class="member-info">
           <p class="member-name">${profile.name}</p>
           <p class="member-role">${profile.position}</p>
@@ -130,7 +130,7 @@ function renderProfiles(profiles) {
       document.getElementById("modalDesc").textContent = profile.description;
       document.getElementById("modalCategory").textContent = profile.category;
   
-      // Show the modal (Bootstrap 5)
+    
       const modal = new bootstrap.Modal(document.getElementById("profileModal"));
       modal.show();
     });
